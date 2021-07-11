@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app>
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+
+  <display-name>SOAP WebService</display-name>
+  
+  <listener>
+    <listener-class>
+        com.sun.xml.ws.transport.http.servlet.WSServletContextListener
+    </listener-class>
+  </listener>
+
+  <session-config>
+    <session-timeout>30</session-timeout>
+  </session-config>
+  
+  <servlet>
+    <servlet-name>MyServlet</servlet-name>
+    <servlet-class>com.soa.ws.servlet.TestServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MyServlet</servlet-name>
+    <url-pattern>/servlet</url-pattern>
+  </servlet-mapping>
+  
+  <security-constraint>
+    <web-resource-collection>
+        <web-resource-name>SOAPWebService</web-resource-name>
+        <url-pattern>/*</url-pattern>
+    </web-resource-collection>
+    <user-data-constraint>
+        <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+    </user-data-constraint>
+  </security-constraint>
+  
+    <servlet>
+        <servlet-name>RestServlet</servlet-name>
+        <servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
+        <init-param>
+            <param-name>com.sun.jersey.config.property.packages</param-name>
+            <param-value>com.rest.ws.jersey</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RestServlet</servlet-name>
+        <url-pattern>/restservlet/*</url-pattern>
+    </servlet-mapping>
+  
+</web-app>
